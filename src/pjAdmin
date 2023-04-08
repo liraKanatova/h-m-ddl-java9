@@ -1,0 +1,85 @@
+create table projects(
+id serial primary key,
+project_name varchar(50),
+data_of_start date,
+data_of_finish date,
+price int);
+
+create table projectProgrammers(
+id serial primary key,
+project_id int references projects(id),
+programmer_id int references programmers(id));
+
+insert into programmers(full_name,email,date_of_birth)values
+('Selena Gomez','s@gmail.com','01.02.1995'),
+('Hailey Bieber','h@gmail.com','22.11.1196');
+
+insert into projects(project_name,data_of_start,data_of_finish,price)
+values('shop','01.03.2023','30.03.2023',500),
+       ('market','01.03.2023','02.05.2023',550);
+
+insert into projectProgrammers(project_id,programmer_id)
+values(1,2),
+       (2,1);
+
+create table userss(
+id serial primary key,
+full_name varchar,
+date_of_birth date);
+
+create table posts(
+id serial primary key,
+publication_date date);
+
+create table instagramAccounts(
+id serial primary key,
+user_name varchar,
+login varchar,
+user_id int references users(id),
+post_id int references posts(id));
+
+insert into userss(full_name,date_of_birth)
+values('Cara Delevingne','12.08.1992'),
+       ('Gigi Hadid','23.04.1995'),
+	   ('Bella Hadid','09.10.1996');
+
+insert into posts(publication_date)
+values('03.04.2023'),
+	  ('31.12.2022'),
+	  ('02.02.15');
+
+insert into instagramAccounts(user_id,post_id)
+values(3,1),
+      (1,2),
+	  (2,3);
+
+create table employees(
+id serial primary key,
+first_name varchar,
+last_name varchar,
+email varchar,
+date_of_birth date);
+
+alter table employees add column gender char;
+
+
+insert into employees(
+first_name,last_name,email,date_of_birth,gender)
+values('John','Doe','j@gmail.com','2000-01-01','M');
+
+create table owners(
+id serial primary key,
+name varchar,
+email varchar,
+phone_number varchar);
+
+create type Gender as enum('F','M');
+
+alter table owners add column Gender gender;
+alter table owners add unique(email);
+alter table owners add constraint phone_number check(phone_number like'+996______');
+
+insert into owners(name,email,phone_number,gender)
+values('Kaily Jenner','k@gmail.com','+996111222','F'),
+      ('Bella Haidid','b@gmail.com','+996333444','F'),
+	  ('Nik Jhons','n@gmail.com','+996222333','M');

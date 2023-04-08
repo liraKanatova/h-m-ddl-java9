@@ -1,0 +1,122 @@
+create table task(
+    id serial  primary key ,
+    name varchar(20),
+    state varchar(20)
+);
+insert into task(name, state)
+values ('ddl','progress');
+select * from task;
+
+update task set state = 'done' where id = 2;
+update task set name = 'sql' where id =2;
+select * from task order by id desc ;
+
+create table Customers
+(
+    id serial primary key ,
+    first_name varchar(50) not null ,
+    last_name varchar(50) not null ,
+    favorite_website varchar(30) not null ,
+    email varchar(50)
+);
+alter table customers add unique (email);
+
+insert into customers
+(first_name, last_name, favorite_website, email)
+VALUES ('Justin','Bieber','google.com','j@gmail.com'),
+ ('Mila','Kunis','bing.com','m@gmail.com'),
+ ('Tom','Cruise','yahoo.com','t@gmail.com'),
+ ('Kendall','Jenner','google.com','k@gmail.com');
+
+create table users
+(
+    id serial primary key ,
+    first_name varchar(30) not null ,
+    last_name varchar(30) not null ,
+    date_of_birth date,
+    gender char(1)
+);
+
+
+insert into users(first_name, last_name, date_of_birth, gender)
+VALUES ('Johnson','Johnson','01.02.2000','m'),
+ ('Sara','Sara','01.02.2002','f'),
+ ('Nik','Nik','01.02.2001','m'),
+ ('Jess','Jess','01.02.2003','f');
+
+update users set first_name = 'Anna' where id = 4;
+update users set last_name = 'Cristi' where id =2;
+select * from users order by id;
+
+create table patients
+(
+    id serial primary key ,
+    full_name varchar(50)not null ,
+    email varchar(30)
+
+);
+ alter table patients add unique (email);
+
+
+create table hospitals
+(
+    id serial primary key ,
+    name varchar(30),
+    address varchar(50),
+    patient_id int references patients (id)
+
+);
+insert into patients(full_name, email)
+values ('Selena Gomez','s@gmail.com'),
+ ('Weekend','w@gmail.com');
+
+insert into hospitals
+(name, address, patient_id)
+VALUES ('Med','kievskay',2),
+ ('One','sovetskay',1);
+
+alter table hospitals rename  column id to hospital_id;
+
+create table authors
+(
+    id serial primary key ,
+    name varchar(50) not null ,
+    country varchar(70) not null
+);
+
+alter table authors rename  column name to full_name ;
+
+
+insert into authors
+(full_name, country)
+VALUES('J.D.Salinger','USA'),
+      ('F.Scott.Fitzgerald','USA'),
+      ('Jane Austen','UK'),
+      ('Scott Hanselman','USA');
+
+create table books
+(
+    id serial primary key ,
+    title varchar(50),
+    author_id int references authors(id)
+);
+
+insert into books(title, author_id)
+VALUES ('The Catcher in the Rye',1),
+       ('The Great Gatsby',4),
+       ('Nine Stories',2),
+       ('Franny and Zooey',3);
+
+create table booksAuthors
+(
+    id serial primary key ,
+    book_id int references books(id),
+    author_id int references authors(id)
+);
+
+insert into booksAuthors(book_id, author_id)
+VALUES (1,1),
+       (2,4),
+       (3,2),
+       (4,3);
+
